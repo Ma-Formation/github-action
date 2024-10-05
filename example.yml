@@ -1,0 +1,60 @@
+# ceci est un exemple d'un fichier YAML
+
+# Clés / Valeurs
+  cle1: valeur
+  cle2: valeur
+
+  # Les listes
+  liste simple:
+    - item1
+    - item2
+    - item4
+    - item4
+    - items
+
+# Types de données YAMl
+  chaine: "Ceci est un test"
+  entier : "AZURE1245"
+  flotant: 45.8
+  bouleen_vrai: true
+  bouleen_false: false
+  nul : null
+
+# Donnée du type  numerique  
+  nombre:
+    entier_decimal: 1234
+    entier_hexadecimal : ax12dx
+    entier_octal: 02223
+
+# Chaine,Bouleen, list et Nulls en YAML
+  divers:
+    chaines_multilignes: |
+      ceci est une chaine
+      de caracteres multilignes
+      en YAML avec piple
+    liste:
+      - item1
+      - item2
+      - item3
+    bouleen: true
+    nul: null
+
+# Ancres et Alias 
+  ancres_et_alias:
+    &Ancre_base:
+      base:
+        nom: "Maxime"    
+        age: 23 
+        ville: "Paris" 
+
+  copie_base: *Ancre_base
+
+# Fusion du dictionnaire
+  fusion_du_dictionnaire: 
+    base: &base
+      clé1: valeur1
+      cle2: valeur2
+
+    extension:
+      <<: *base
+      cle3: valeur3  
