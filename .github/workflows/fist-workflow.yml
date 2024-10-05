@@ -10,7 +10,7 @@ jobs: # travaux à faire
         with:
           node-version: '20'
       - run: npm install -g bats  
-      - run: bats -V
- 
-      
+      - run: bats -v
+
+
 
