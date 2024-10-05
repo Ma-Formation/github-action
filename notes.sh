@@ -68,3 +68,7 @@ git stash pop
 
 # Modifier le dernier commit (sans changer son hash)
 git commit --amend --no-edit
+
+# Creer un tag
+git tag -a <nom du tag> -m "commentaire"
+git push origin  --tags
