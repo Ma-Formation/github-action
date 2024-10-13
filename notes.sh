@@ -72,3 +72,9 @@ git commit --amend --no-edit
 # Creer un tag
 git tag -a <nom du tag> -m "commentaire"
 git push origin  --tags
+
+-------------------------------------------
+
+# Github Action 
+- jobs: serie de steps
+- steps: serie de taches
