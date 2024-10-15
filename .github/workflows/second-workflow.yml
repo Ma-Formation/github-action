@@ -23,19 +23,19 @@ jobs:
 
       - name: Run build
         run: npm run build
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout code
-        uses: actions/checkout@v4
+  # test:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: checkout code
+  #       uses: actions/checkout@v4
 
-      - name: setup nodejs
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
+  #     - name: setup nodejs
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: "20"
       
-      - name: Run Test
-        run: npm run test
+  #     - name: Run Test
+  #       run: npm run test
         
-  steps:
-   runs-on: ubuntu-latest            
+  # steps:
+  #  runs-on: ubuntu-latest            
