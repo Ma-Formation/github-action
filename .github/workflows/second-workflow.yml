@@ -1,5 +1,5 @@
 name: build and test github action
-run-name: ${{ github.actor}} 
+run-name: ${{ github.actor }} second-workflow
 
 on:
   push:
@@ -11,31 +11,33 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout code
+      - name: Checkout code
         uses: actions/checkout@v4
-      - name: setup nodejs
+
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
 
-      - name: Install dependances
+      - name: Install dependencies
         run: npm install
 
       - name: Run build
-        run: npm index
+        run: npm run build
+
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout code
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: setup nodejs
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
       
-      - name: Run Test
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
         run: npm test
-        
-  # steps:
-  #  runs-on: ubuntu-latest            
