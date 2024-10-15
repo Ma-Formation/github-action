@@ -1,4 +1,5 @@
-name: "build and test github action"
+name: build and test github action
+run-name: ${{ github.actor}} 
 
 on:
   push:
