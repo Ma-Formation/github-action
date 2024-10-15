@@ -22,8 +22,7 @@ jobs:
 
       - name: Run build
         run: npm run build
-test:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: checkout code
