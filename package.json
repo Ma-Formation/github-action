@@ -5,10 +5,10 @@
     "main": "index.js",
     "scripts": { 
       "test": "node test.js",
-      "build": "echo \"Error: no test specified\" && exit 1",
+      "build": "echo \"Error: no test specified\" && exit 1"
     },
     
-    "author": "",
+    "author": "PM",
     "license": "ISC"
     
     }
