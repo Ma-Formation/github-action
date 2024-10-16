@@ -1,27 +1,35 @@
-# name: Destroy EC2 with Terraform
+name: Destroy EC2 with Terraform
+run-name: ${{ github.actor }} - Destroy EC2 with Terraform
 
-# # Ce workflow peut être déclenché manuellement via l'interface GitHub Actions
-# on:
-#   workflow_dispatch:
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:   # Ajout d'un déclencheur manuel
 
-# jobs:
-#   terraform-destroy:
-#     runs-on: ubuntu-latest
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
 
-#     steps:
-#     - name: Checkout the code
-#       uses: actions/checkout@v2
+    steps:
+    - name: Checkout the code
+      uses: actions/checkout@v2
 
-#     - name: Install Terraform
-#       uses: hashicorp/setup-terraform@v2
-#       with:
-#         terraform_version: 1.5.0
+    - name: Install Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: 1.5.0
 
-#     - name: Terraform Init
-#       run: terraform init
+    - name: Terraform Init
+      run: terraform init
 
-#     - name: Terraform Destroy
-#       run: terraform destroy -auto-approve
-#       env:
-#         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    - name: Terraform Plan
+      run: terraform plan -var "aws_access_key=${{ secrets.AWS_ACCESS_KEY_ID }}" -var "aws_secret_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+
+    - name: Terraform Apply
+      if: github.event_name == 'push'  # S'exécute uniquement sur un push
+      run: terraform apply -auto-approve -var "aws_access_key=${{ secrets.AWS_ACCESS_KEY_ID }}" -var "aws_secret_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+
+    - name: Terraform Destroy
+      if: github.event_name == 'workflow_dispatch'   # S'exécute uniquement lorsqu'il est déclenché manuellement
+      run: terraform destroy -auto-approve -var "aws_access_key=${{ secrets.AWS_ACCESS_KEY_ID }}" -var "aws_secret_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}"
