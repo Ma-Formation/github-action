@@ -12,6 +12,7 @@ temp/
 # .tfstate files
 *.tfstate
 *.tfstate.*
+*.backup.*
 
 # Crash log files
 crash.log
