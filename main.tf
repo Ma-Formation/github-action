@@ -3,6 +3,6 @@ resource "aws_instance" "ec2-action" {
   instance_type = "t2.micro"
 
   tags = {
-    Name = "GitHubActionEC2"
+    Name = "GitHub-Action-EC2"
   }
 }
