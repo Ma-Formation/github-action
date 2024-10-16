@@ -1,0 +1,27 @@
+name: Run workflow python script
+run-name: ${{ github.actor }} workflow script python
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+
+      - name: install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pipi install virtualenv
+          virtualenv venv 
+          source venv/bin/activate
+
+      - name: RUun Script Python
+        run: python 
+
