@@ -8,7 +8,7 @@ on:
   workflow_dispatch:   # Ajout d'un déclencheur manuel
 
 jobs:
-  terraform:
+  terraform-destroy:
     runs-on: ubuntu-latest
 
     steps:
