@@ -1,11 +1,8 @@
 name: Destroy EC2 with Terraform
-run-name: ${{ github.actor }} - Destroy EC2 with Terraform
+run-name: ${{ github.actor}} - Destroy EC2 with Terraform
 
 on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:   # Ajout d'un déclencheur manuel
+  workflow_dispatch:  # Ce déclencheur permet d'exécuter manuellement le workflow depuis l'interface GitHub Actions
 
 jobs:
   terraform-destroy:
@@ -23,13 +20,8 @@ jobs:
     - name: Terraform Init
       run: terraform init
 
-    - name: Terraform Plan
-      run: terraform plan -var "aws_access_key=${{ secrets.AWS_ACCESS_KEY_ID }}" -var "aws_secret_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}"
-
-    - name: Terraform Apply
-      if: github.event_name == 'push'  # S'exécute uniquement sur un push
-      run: terraform apply -auto-approve -var "aws_access_key=${{ secrets.AWS_ACCESS_KEY_ID }}" -var "aws_secret_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+    - name: Terraform Plan (destroy)
+      run: terraform plan -destroy -var "aws_access_key=${{ secrets.AWS_ACCESS_KEY_ID }}" -var "aws_secret_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}"
 
     - name: Terraform Destroy
-      if: github.event_name == 'workflow_dispatch'   # S'exécute uniquement lorsqu'il est déclenché manuellement
       run: terraform destroy -auto-approve -var "aws_access_key=${{ secrets.AWS_ACCESS_KEY_ID }}" -var "aws_secret_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}"

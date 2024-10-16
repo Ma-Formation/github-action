@@ -1,4 +1,5 @@
 name: Deploy EC2 with Terraform
+run-name: ${{ github.actor}} - Deploy EC2 with Terraform
 
 on:
   push:
