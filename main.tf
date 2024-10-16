@@ -1,6 +1,8 @@
 # -----------code importation de target group deja creer ------------
-# Recuperation d'un target group deja utiliser par d'autre app par terraform, uniquement en mod prod"
-# code recup: terraform import aws_lb_target_group.terraform_tg arn:aws:elasticloadbalancing:us-east-1:654654270281:targetgroup/terraform-target-group/e55e5c6f6baf614f
+# Recuperation d'un target group deja utiliser par d'autres applications par terraform, uniquement en mode prod
+# Code d'importation: 
+# terraform import aws_lb_target_group.terraform_tg arn:aws:elasticloadbalancing:us-east-1:654654270281:targetgroup/terraform-target-group/e55e5c6f6baf614f
+
 # VPC
 resource "aws_vpc" "terraform_vpc" {
   cidr_block = "10.0.0.0/16"
@@ -108,30 +110,9 @@ resource "aws_lb" "terraform_lb" {
   }
 }
 
-# Target Group (important)
-resource "aws_lb_target_group" "terraform_tg" {
-  name     = "arn:aws:elasticloadbalancing:us-east-1:654654270281:targetgroup/terraform-target-group/e55e5c6f6baf614f"
-  port     = 80
-  protocol = "HTTP"
-  vpc_id   = aws_vpc.terraform_vpc.id
-
-  health_check {
-    path                = "/"
-    interval            = 30
-    timeout             = 5
-    healthy_threshold   = 5
-    unhealthy_threshold = 2
-    matcher             = "200"
-  }
-
-  tags = {
-    Name = "terraform-target-group"
-  }
-}
-
-# Enregistrement de l'instance dans le Target Group
+# Enregistrement de l'instance dans le Target Group importé
 resource "aws_lb_target_group_attachment" "terraform_tg_attachment" {
-  target_group_arn = aws_lb_target_group.terraform_tg.arn
+  target_group_arn = "arn:aws:elasticloadbalancing:us-east-1:654654270281:targetgroup/terraform-target-group/e55e5c6f6baf614f"  # L'ARN du Target Group déjà importé
   target_id        = aws_instance.ec2_action.id
   port             = 80
 }
@@ -144,9 +125,10 @@ resource "aws_lb_listener" "terraform_lb_listener" {
 
   default_action {
     type             = "forward"
-    target_group_arn = "arn:aws:elasticloadbalancing:us-east-1:654654270281:targetgroup/terraform-target-group/e55e5c6f6baf614f"
+    target_group_arn = "arn:aws:elasticloadbalancing:us-east-1:654654270281:targetgroup/terraform-target-group/e55e5c6f6baf614f"  # L'ARN du Target Group déjà importé
   }
 }
+
 
 
 
