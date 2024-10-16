@@ -147,7 +147,7 @@
 
 
 
------------code avec creation de creation de target_group-------------
+#-----------code avec creation de creation de target_group-------------
 # VPC
 resource "aws_vpc" "terraform_vpc" {
   cidr_block = "10.0.0.0/16"
