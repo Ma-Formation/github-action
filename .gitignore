@@ -5,3 +5,6 @@ logs
 # Temporary folder
 tmp/
 temp/
+
+# terraform ignore
+.terraform/
