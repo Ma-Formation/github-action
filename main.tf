@@ -149,12 +149,48 @@
 
 #-----------code avec creation de creation de target_group-------------
 # VPC
+# VPC
 resource "aws_vpc" "terraform_vpc" {
   cidr_block = "10.0.0.0/16"
   
   tags = {
     Name = "terraform-vpc"
   }
+}
+
+# Ajouter une Internet Gateway pour le VPC
+resource "aws_internet_gateway" "terraform_igw" {
+  vpc_id = aws_vpc.terraform_vpc.id
+
+  tags = {
+    Name = "terraform-igw"
+  }
+}
+
+# Ajouter une table de routage pour permettre le trafic Internet
+resource "aws_route_table" "terraform_route_table" {
+  vpc_id = aws_vpc.terraform_vpc.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.terraform_igw.id
+  }
+
+  tags = {
+    Name = "terraform-route-table"
+  }
+}
+
+# Associer la table de routage au sous-réseau 1
+resource "aws_route_table_association" "terraform_rta_subnet1" {
+  subnet_id      = aws_subnet.subnet_terraform.id
+  route_table_id = aws_route_table.terraform_route_table.id
+}
+
+# Associer la table de routage au sous-réseau 2
+resource "aws_route_table_association" "terraform_rta_subnet2" {
+  subnet_id      = aws_subnet.subnet_terraform_az2.id
+  route_table_id = aws_route_table.terraform_route_table.id
 }
 
 # Sous-réseau 1
