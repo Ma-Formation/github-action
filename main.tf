@@ -1,4 +1,4 @@
-# Créer un VPC
+# VPC
 resource "aws_vpc" "terraform_vpc" {
   cidr_block = "10.0.0.0/16"
   
@@ -7,17 +7,29 @@ resource "aws_vpc" "terraform_vpc" {
   }
 }
 
-# Créer un sous-réseau
+# Sous-réseau 1
 resource "aws_subnet" "subnet_terraform" {
   vpc_id     = aws_vpc.terraform_vpc.id
   cidr_block = "10.0.1.0/24"
-  
+  availability_zone = "us-east-1a"
+
   tags = {
     Name = "terraform-subnet"
   }
 }
 
-# Créer un groupe de sécurité pour l'instance EC2
+# Sous-réseau 2
+resource "aws_subnet" "subnet_terraform_az2" {
+  vpc_id     = aws_vpc.terraform_vpc.id
+  cidr_block = "10.0.2.0/24"
+  availability_zone = "us-east-1b"
+
+  tags = {
+    Name = "terraform-subnet-az2"
+  }
+}
+
+# Groupe de sécurité pour l'EC2
 resource "aws_security_group" "sg_terraform_ec2" {
   vpc_id = aws_vpc.terraform_vpc.id
 
@@ -40,19 +52,19 @@ resource "aws_security_group" "sg_terraform_ec2" {
   }
 }
 
-# Créer une instance EC2
+# Instance EC2
 resource "aws_instance" "ec2_action" {
-  ami           = "ami-0866a3c8686eaeeba"
-  instance_type = "t2.micro"
-  subnet_id     = aws_subnet.subnet_terraform.id
-  security_groups = [aws_security_group.sg_terraform_ec2.name]
+  ami                   = "ami-0866a3c8686eaeeba"
+  instance_type         = "t2.micro"
+  subnet_id             = aws_subnet.subnet_terraform.id
+  vpc_security_group_ids = [aws_security_group.sg_terraform_ec2.id]
 
   tags = {
     Name = "GitHub-Action-EC2"
   }
 }
 
-# Créer un groupe de sécurité pour le Load Balancer
+# Groupe de sécurité pour le Load Balancer
 resource "aws_security_group" "sg_terraform_lb" {
   vpc_id = aws_vpc.terraform_vpc.id
 
@@ -75,13 +87,16 @@ resource "aws_security_group" "sg_terraform_lb" {
   }
 }
 
-# Créer un Load Balancer (ALB)
+# Load Balancer (ALB)
 resource "aws_lb" "terraform_lb" {
   name               = "terraform-lb"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.sg_terraform_lb.id]
-  subnets            = [aws_subnet.subnet_terraform.id]
+  subnets            = [
+    aws_subnet.subnet_terraform.id,
+    aws_subnet.subnet_terraform_az2.id
+  ]
 
   enable_deletion_protection = false
 
@@ -90,7 +105,7 @@ resource "aws_lb" "terraform_lb" {
   }
 }
 
-# Créer un Target Group pour enregistrer l'instance EC2
+# Target Group
 resource "aws_lb_target_group" "terraform_tg" {
   name     = "terraform-target-group"
   port     = 80
@@ -111,14 +126,14 @@ resource "aws_lb_target_group" "terraform_tg" {
   }
 }
 
-# Enregistrer l'instance EC2 dans le Target Group
+# Enregistrement de l'instance dans le Target Group
 resource "aws_lb_target_group_attachment" "terraform_tg_attachment" {
   target_group_arn = aws_lb_target_group.terraform_tg.arn
   target_id        = aws_instance.ec2_action.id
   port             = 80
 }
 
-# Configurer un Listener pour le Load Balancer
+# Listener pour le Load Balancer
 resource "aws_lb_listener" "terraform_lb_listener" {
   load_balancer_arn = aws_lb.terraform_lb.arn
   port              = "80"
