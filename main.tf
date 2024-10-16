@@ -105,26 +105,26 @@ resource "aws_lb" "terraform_lb" {
   }
 }
 
-# Target Group (important)
-resource "aws_lb_target_group" "terraform_tg" {
-  name     = "terraform-target-group"
-  port     = 80
-  protocol = "HTTP"
-  vpc_id   = aws_vpc.terraform_vpc.id
+# # Target Group (important)
+# resource "aws_lb_target_group" "terraform_tg" {
+#   name     = "terraform-target-group"
+#   port     = 80
+#   protocol = "HTTP"
+#   vpc_id   = aws_vpc.terraform_vpc.id
 
-  health_check {
-    path                = "/"
-    interval            = 30
-    timeout             = 5
-    healthy_threshold   = 5
-    unhealthy_threshold = 2
-    matcher             = "200"
-  }
+#   health_check {
+#     path                = "/"
+#     interval            = 30
+#     timeout             = 5
+#     healthy_threshold   = 5
+#     unhealthy_threshold = 2
+#     matcher             = "200"
+#   }
 
-  tags = {
-    Name = "terraform-target-group"
-  }
-}
+#   tags = {
+#     Name = "terraform-target-group"
+#   }
+# }
 
 # Enregistrement de l'instance dans le Target Group
 resource "aws_lb_target_group_attachment" "terraform_tg_attachment" {
