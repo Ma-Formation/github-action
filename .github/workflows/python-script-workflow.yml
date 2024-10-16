@@ -22,6 +22,6 @@ jobs:
           virtualenv venv 
           source venv/bin/activate
 
-      - name: RUun Script Python
-        run: python 
+      - name: Run Script Python
+        run: python is_empty.py 29
 
