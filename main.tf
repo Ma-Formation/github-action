@@ -105,7 +105,7 @@ resource "aws_lb" "terraform_lb" {
   }
 }
 
-# Target Group
+# Target Group (important)
 resource "aws_lb_target_group" "terraform_tg" {
   name     = "terraform-target-group"
   port     = 80
