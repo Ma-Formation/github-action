@@ -144,7 +144,7 @@ resource "aws_lb_listener" "terraform_lb_listener" {
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.terraform_tg.arn
+    target_group_arn = "arn:aws:elasticloadbalancing:us-east-1:654654270281:targetgroup/terraform-target-group/e55e5c6f6baf614f"
   }
 }
 
