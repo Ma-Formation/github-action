@@ -13,11 +13,11 @@ jobs:
       - name: setup python
         uses: actions/setup-python@v2
         with:
-          python-version: "3.9"
+          python-version: "3"
 
       - name: install dependencies
         run: |
-          python3 -m pip install --upgrade pip
+          python -m pip install --upgrade pip
           pipi install virtualenv
           virtualenv venv 
           source venv/bin/activate
