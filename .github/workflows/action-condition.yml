@@ -1,0 +1,70 @@
+name: github-action-condition.
+run-name: ${{ github.actor }} - github-action-condition
+
+on:
+  push:
+    branches: [main, pull_request]
+  
+jobs:
+  build-condition:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && success()
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run build
+        run: npm run build
+
+  test-condition:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run test
+        run: npm test
+
+
+
+
+
+
+
+
+
+#------------------
+# on: [push]
+
+# jobs:
+#   test:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#      - name: Run test
+#        run:  exit 1
+ 
+#   deploy:
+#     needs: test
+#     if: github.ref == 'refs/heads/main' && success()
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: deploy condition
+#         run: echo "deploy because test"
+
