@@ -289,6 +289,10 @@ resource "aws_lb" "terraform_lb" {
   tags = {
     Name = "terraform-lb"
   }
+  
+  lifecycle {
+    ignore_changes = [name, tags]  # Empêche Terraform de recréer ou modifier ces champs
+  }
 }
 
 # Target Group (important)
