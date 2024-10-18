@@ -1,5 +1,5 @@
 name: github-action-condition
-run-name: ${{ github.actor }} - github-action-condition
+run-name: ${{ github.actor }} - Condition github action
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: github.base_ref == 'main'
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -27,7 +27,7 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-    if: github.base_ref == 'main'
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
