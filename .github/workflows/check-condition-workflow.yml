@@ -1,15 +1,21 @@
 name: github-action-condition
 run-name: ${{ github.actor }} - Condition github action
 
+
+#------------Trigger Workflow-----------------------
 on:
-  push:
   pull_request:
-  workflow_dispatch:
+    types:
+      - opened
+      - reopened
+    branches:
+      - 'releases/**'
+    paths:
+      - '**.js'
     
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: contains(fromJSON('["push", "pull_request"]'), github.event_name)
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -27,7 +33,6 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-    if: contains(fromJSON('["push", "pull_request"]'), github.event_name)
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -41,29 +46,7 @@ jobs:
         run: npm install
 
       - name: Run test
-        run: npm run test
-
-  deploy:
-    runs-on: ubuntu-latest
-    if: (contains(fromJSON('["push"]'), github.event_name) && github.ref == 'refs/heads/main') || github.event_name == 'workflow_dispatch'
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run deploy
-        run: npm run deploy
-
-      - name: Run deploy confirmation
-        if: failure()
-        run: echo "Deploy successfully completed"
+        run: npm run tests
 
 
 
