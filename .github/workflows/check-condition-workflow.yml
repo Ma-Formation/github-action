@@ -7,7 +7,7 @@ on:
     workflow_dispatch:
   
 jobs:
-  build-condition:
+  build:
     runs-on: ubuntu-latest
     if: github.event_name == 'push' || github.event_name == 'pull_request'
     steps:
@@ -23,9 +23,9 @@ jobs:
         run: npm install
 
       - name: Run build
-        run: npm build-condition
+        run: npm build
 
-  test-condition:
+  test:
     runs-on: ubuntu-latest
     if: (github.event_name == 'push' && github.base_ref == 'refs/heads/main' )|| github.event_name == 'pull_request'
     steps:
@@ -41,9 +41,9 @@ jobs:
         run: npm install
 
       - name: Run test
-        run: npm test-condition
+        run: npm test
 
-  deploy-condition:
+  deploy:
     runs-on: ubuntu-latest
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     steps:
@@ -59,7 +59,7 @@ jobs:
         run: npm install
 
       - name: Run deploy
-        run: npm deploy-condition
+        run: npm deploy
 
 
 
