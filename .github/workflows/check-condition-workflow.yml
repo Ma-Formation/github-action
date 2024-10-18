@@ -8,7 +8,11 @@ on:
 jobs:
   build-condition:
     runs-on: ubuntu-latest
+<<<<<<< HEAD
     if: github.base_ref == 'main'
+=======
+    if: github.ref == 'refs/heads/main' && success()
+>>>>>>> 0ee13b2cd2a81109d89d7c7d563b3597b6ac47c7
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -26,7 +30,10 @@ jobs:
 
   test-condition:
     runs-on: ubuntu-latest
+<<<<<<< HEAD
     if: github.base_ref == 'main'
+=======
+>>>>>>> 0ee13b2cd2a81109d89d7c7d563b3597b6ac47c7
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
