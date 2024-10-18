@@ -6,7 +6,7 @@ on:
     branches:
       - main  # Push uniquement sur la branche 'main'
   pull_request:
-  workflow_dispatch:
+    workflow_dispatch:
 
 jobs:
   build:
