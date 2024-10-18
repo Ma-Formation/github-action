@@ -56,10 +56,10 @@ jobs:
           node-version: '20'
 
       - name: install dependencies
-        uses: npm install
+        run: npm install
 
       - name: Run deploy
-        run: npm deploy-condition
+        run: npm run deploy-condition
 
 
 
