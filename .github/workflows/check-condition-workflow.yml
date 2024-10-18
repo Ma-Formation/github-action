@@ -3,15 +3,13 @@ run-name: ${{ github.actor }} - Condition github action
 
 on:
   push:
-    branches:
-      - main  # Push uniquement sur la branche 'main'
-  pull_request:
+    pull_request:
     workflow_dispatch:
-
+    
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' || github.event_name == 'pull_request'
+    if: contains(fromJSON('["push","pull_request"]'), github.event_name)
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -29,7 +27,7 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' || github.event_name == 'pull_request'
+    if: contains(fromJSON('["push","pull_request"]'), github.event_name)
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -62,3 +60,7 @@ jobs:
 
       - name: Run deploy
         run: npm run deploy
+
+      - name: Run deploy 
+        if: ${{ succcess() }}
+        run: echo "Deploy run deploy succes"   
