@@ -1,4 +1,4 @@
-name: github-action-condition.
+name: github-action-condition
 run-name: ${{ github.actor }} - github-action-condition
 
 on:
