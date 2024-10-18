@@ -59,7 +59,7 @@ jobs:
         run: npm install
 
       - name: Run deploy
-        run: npm run deploy-condition
+        run: npm deploy-condition
 
 
 
