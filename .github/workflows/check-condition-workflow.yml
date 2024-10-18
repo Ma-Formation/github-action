@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: contains(fromJSON('["push","pull_request"]'), github.event_name)
+    if: contains(fromJSON('["push", "pull_request"]'), github.event_name)
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -27,7 +27,7 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-    if: contains(fromJSON('["push","pull_request"]'), github.event_name)
+    if: contains(fromJSON('["push", "pull_request"]'), github.event_name)
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -45,7 +45,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    if: (github.ref == 'refs/heads/main' && github.event_name == 'push') || github.event_name == 'workflow_dispatch'
+    if: (contains(fromJSON('["push"]'), github.event_name) && github.ref == 'refs/heads/main') || github.event_name == 'workflow_dispatch'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -61,6 +61,6 @@ jobs:
       - name: Run deploy
         run: npm run deploy
 
-      - name: Run deploy 
-        if: ${{ succcess() }}
-        run: echo "Deploy run deploy succes"   
+      - name: Run deploy confirmation
+        if: success()
+        run: echo "Deploy successfully completed"
