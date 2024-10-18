@@ -43,23 +43,23 @@ jobs:
       - name: Run test
         run: npm test-condition
 
-deploy-condition:
-  runs-on: ubuntu-latest
-  if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-  steps:
-    - name: Checkout
-      uses: actions/checkout@v4
+  deploy-condition:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    - name: setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
+      - name: setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
 
-    - name: install dependencies
-      uses: npm install
+      - name: install dependencies
+        uses: npm install
 
-    - name: Run deploy
-      run: npm deploy-condition
+      - name: Run deploy
+        run: npm deploy-condition
 
 
 
