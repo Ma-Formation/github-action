@@ -3,9 +3,11 @@ run-name: ${{ github.actor }} - Condition github action
 
 on:
   push:
-    pull_request:
-    workflow_dispatch:
-  
+    branches:
+      - main  # Push uniquement sur la branche 'main'
+  pull_request:
+  workflow_dispatch:
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -60,32 +62,3 @@ jobs:
 
       - name: Run deploy
         run: npm run deploy
-
-
-
-
-
-
-
-
-
-
-#------------------
-# on: [push]
-
-# jobs:
-#   test:
-#     runs-on: ubuntu-latest
-
-#     steps:
-#      - name: Run test
-#        run:  exit 1
- 
-#   deploy:
-#     needs: test
-#     if: github.base_ref == 'main'
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: deploy condition
-#         run: echo "deploy because test"
-
