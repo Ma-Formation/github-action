@@ -5,7 +5,8 @@
     "main": "index.js",
     "scripts": { 
       "test": "node test.js",
-      "build": "node index.js"
+      "build": "node index.js",
+      "deploy": "echo 'Deploying the application...'"
     },
     
     "author": "PM",
