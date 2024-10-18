@@ -27,7 +27,7 @@ jobs:
 
   test-condition:
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull' || github.event_name == 'pull_request'
+    if: (github.event_name == 'pull' && github.base_ref == 'refs/heads/main' )|| github.event_name == 'pull_request'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
