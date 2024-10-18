@@ -9,7 +9,7 @@ on:
 jobs:
   build-condition:
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull' || github.event_name == 'pull_request'
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -23,11 +23,11 @@ jobs:
         run: npm install
 
       - name: Run build
-        run: npm run build-condition
+        run: npm build-condition
 
   test-condition:
     runs-on: ubuntu-latest
-    if: (github.event_name == 'pull' && github.base_ref == 'refs/heads/main' )|| github.event_name == 'pull_request'
+    if: (github.event_name == 'push' && github.base_ref == 'refs/heads/main' )|| github.event_name == 'pull_request'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -59,7 +59,7 @@ jobs:
         run: npm install
 
       - name: Run deploy
-        run: npm run deploy-condition
+        run: npm deploy-condition
 
 
 
