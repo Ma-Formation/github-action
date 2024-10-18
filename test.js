@@ -1,5 +1,5 @@
 const greet = require("./index.js")
-console.log ("Running the tests");
+console.log ("Running the test");
 
 if (greet() === "Hello, World"){
     console.log("Test Passed !");
