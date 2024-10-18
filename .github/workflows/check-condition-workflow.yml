@@ -1,5 +1,5 @@
 name: github-action-condition
-run-name: ${{ github.actor }} - Condition github action
+
 
 
 #------------Trigger Workflow-----------------------
