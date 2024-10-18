@@ -45,21 +45,22 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    if: (github.event_name == 'push' && github.base_ref == 'refs/heads/main') || github.event_name == 'workflow_dispatch'
+    if: (github.ref == 'refs/heads/main' && github.event_name == 'push') || github.event_name == 'workflow_dispatch'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: setup Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      - name: install dependencies
+      - name: Install dependencies
         run: npm install
 
       - name: Run deploy
         run: npm run deploy
+
 
 
 
