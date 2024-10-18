@@ -3,10 +3,11 @@ run-name: ${{ github.actor }} - github-action-condition
 
 on:
   push:
-    branches: [main, pull_request]
+    pull_request:
+    workflow_dispatch:
   
 jobs:
-  build-condition:
+  build:
     runs-on: ubuntu-latest
     if: github.base_ref == 'main'
     steps:
@@ -24,7 +25,7 @@ jobs:
       - name: Run build
         run: npm run build
 
-  test-condition:
+  test:
     runs-on: ubuntu-latest
     if: github.base_ref == 'main'
     steps:
@@ -40,7 +41,25 @@ jobs:
         run: npm install
 
       - name: Run test
-        run: npm test
+        run: npm run test
+
+  deploy:
+    runs-on: ubuntu-latest
+    if: (github.event_name == 'push' && github.base_ref == 'refs/heads/main') || github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: install dependencies
+        run: npm install
+
+      - name: Run deploy
+        run: npm run deploy
 
 
 
