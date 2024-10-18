@@ -9,11 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-<<<<<<<<< Temporary merge branch 1
-    if: github.base_ref == 'main'
-=========
     if: github.event_name == 'push' || github.event_name == 'pull_request'
->>>>>>>>> Temporary merge branch 2
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -31,11 +27,7 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-<<<<<<<<< Temporary merge branch 1
-    if: github.base_ref == 'main'
-=========
     if: github.event_name == 'push' || github.event_name == 'pull_request'
->>>>>>>>> Temporary merge branch 2
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
