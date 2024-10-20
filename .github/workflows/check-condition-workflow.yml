@@ -12,10 +12,6 @@ on:
       - 'releases/**'
     paths:
       - '**.js'
-  workflow_run:
-    workflow: ["Run workflow python script"] 
-    types:
-      - success
     
 jobs:
   build:
