@@ -1,17 +1,14 @@
-name: Build
+name: First Workflow
 
-on:
-  push:
-    branches:
-      - main  # Ce workflow est déclenché lorsqu'il y a un push sur la branche "main"
+on: [push]
 
-jobs:
+jobs: 
   build:
     runs-on: ubuntu-latest
-
+    
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Run build script
-      run: echo "Build process started"
+      uses: actions/checkout@v2
+  
+    - name: Build
+      run: echo "Building the project..."

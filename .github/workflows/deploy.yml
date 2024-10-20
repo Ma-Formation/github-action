@@ -1,15 +1,13 @@
-name: Deploy
-
 on:
   workflow_run:
-    workflows: ["build.yml"]  # Ce workflow est déclenché à la fin du workflow "Build"
+    workflows: ["First Workflow"]
     types:
-      - success  # Il ne sera déclenché que si le workflow "Build" réussit
+      - completed
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
-    steps:
-    - name: Deployment script
-      run: echo "Deployment process started"
+    steps: 
+    - name: Deploy
+      run: echo "Deploying the project..."
