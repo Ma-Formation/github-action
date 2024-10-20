@@ -2,7 +2,7 @@ on:
   workflow_run:
     workflows: ["First Workflow"]
     types:
-      - completed
+      - success
 
 jobs:
   deploy:
