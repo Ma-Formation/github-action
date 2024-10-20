@@ -2,7 +2,7 @@ name: Deploy
 
 on:
   workflow_run:
-    workflows: ["Build"]  # Ce workflow est déclenché à la fin du workflow "Build"
+    workflows: ["build.yml"]  # Ce workflow est déclenché à la fin du workflow "Build"
     types:
       - success  # Il ne sera déclenché que si le workflow "Build" réussit
 
