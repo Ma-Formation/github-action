@@ -1,0 +1,19 @@
+name:  Cron github action 
+
+on:
+  schedule:
+    #- cron: '* * * * *'
+    - cron: "*/2 * * * *"
+
+jobs:
+  test-schedule: 
+    runs-on: ubuntu-latest
+    steps:      
+      - name: Not on Saturday or Sunday
+        if: github.event_name =! "*/2 * * * *"
+        run: echo ' Not on Saturday or Sunday '
+
+      - name: Every time you go
+        #if: github.event_name == '1 * * * * '
+        run: node -v
+
