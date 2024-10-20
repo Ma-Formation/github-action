@@ -10,8 +10,8 @@ on:
       - reopened
     branches:
       - 'releases/**'
-    # paths:
-    #   - '**.js'
+    paths:
+      - '**.js'
   workflow_run:
     workflow: ["Run workflow python script"] 
     types:
