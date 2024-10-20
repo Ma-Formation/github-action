@@ -4,7 +4,7 @@ on:
   workflow_run:
     workflows: ["Build_workflow_run"]  # Ce workflow est déclenché à la fin du workflow "Build"
     types:
-      - success  # Il ne sera déclenché que si le workflow "Build" réussit
+      - completed"  # Il ne sera déclenché que si le workflow "Build" réussit
 
 jobs:
   deploy:
