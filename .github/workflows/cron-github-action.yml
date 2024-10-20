@@ -2,7 +2,7 @@ name:  Cron github action
 
 on:
   schedule:
-    - cron: '* * * * *'
+    #- cron: '* * * * *'
     - cron: "*/2 * * * *"
 
 jobs:
